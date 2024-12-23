@@ -1,0 +1,23 @@
+kind: Deployment
+metadata:
+  labels:
+    app: helloapi
+  name: helloapi-deployment
+  annotations:
+    link.argocd.argocdproj.io/external-link: https://hub.docker.com/repository/docker/ilyascokan$
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloapi
+  template:
+    metadata:
+      labels:
+        app: helloapi
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: helloapi
+        image: ilyascokan/helloapi:v1
+        imagePullPolicy: Always
